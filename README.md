@@ -1,5 +1,5 @@
 📊 Power BI Dashboard
-This repository contains a Power BI dashboard created using Microsoft Power BI. The .pbip file included showcases interactive visualizations and data insights.
+This repository contains a Power BI dashboard created using Microsoft Power BI. The .pbix file included showcases interactive visualizations and data insights.
 
 🔗 How to View
 To open the dashboard:
