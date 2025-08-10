@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Examination Portal</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border-radius: 5px; }
+        .hidden { display: none; }
+        .button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            background-color: #f0f0f0;
+        }
+        .form-container { border: 1px solid #ccc; padding: 20px; }
+        input { width: 100%; padding: 8px; margin: 5px 0 15px; box-sizing: border-box; }
+        .submit-btn { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        .question-container { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .options label { display: block; text-align: left; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="app-container">
+
+        <div id="home-page" class="container">
+            <h1>Welcome to the Online Examination Portal</h1>
+            <p>Your one-stop solution for taking online tests.</p>
+            <button class="button" onclick="showPage('login-page')">Login</button>
+            <button class="button" onclick="showPage('registration-page')">Register</button>
+        </div>
+
+        <div id="registration-page" class="container hidden">
+            <div class="form-container">
+                <h2>Register for an Account</h2>
+                <form id="registration-form">
+                    <label for="reg-username">Username:</label>
+                    <input type="text" id="reg-username" required>
+                    <label for="reg-email">Email:</label>
+                    <input type="email" id="reg-email" required>
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" required>
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" onclick="showPage('login-page')">Login here</a></p>
+            </div>
+        </div>
+
+        <div id="login-page" class="container hidden">
+            <div class="form-container">
+                <h2>Login to your Account</h2>
+                <form id="login-form">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" required>
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" required>
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+                <p>Don't have an account? <a href="#" onclick="showPage('registration-page')">Register here</a></p>
+            </div>
+        </div>
+
+        <div id="test-page" class="container hidden">
+            <h1>General Knowledge Test</h1>
+            <form id="quiz-form">
+                <div class="question-container">
+                    <h3>1. What is the capital of France?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="C"> Paris</label>
+                        <label><input type="radio" name="q1" value="A"> Berlin</label>
+                        <label><input type="radio" name="q1" value="B"> Madrid</label>
+                        <label><input type="radio" name="q1" value="D"> Rome</label>
+                    </div>
+                </div>
+                <div class="question-container">
+                    <h3>2. Which planet is known as the Red Planet?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="B"> Mars</label>
+                        <label><input type="radio" name="q2" value="A"> Earth</label>
+                        <label><input type="radio" name="q2" value="C"> Jupiter</label>
+                        <label><input type="radio" name="q2" value="D"> Venus</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Submit Test</button>
+            </form>
+        </div>
+
+        <div id="results-page" class="container hidden">
+            <h1>Test Results</h1>
+            <p>Your final score is: <span id="score">0</span> / 2</p>
+            <p>Congratulations on completing the test!</p>
+            <button class="button" onclick="showPage('home-page')">Return to Home</button>
+        </div>
+
+    </div>
+
+    <script>
+        
+        function showPage(pageId) {
+            document.querySelectorAll('.container').forEach(page => {
+                page.classList.add('hidden');
+            });
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+       
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+          
+            showPage('test-page');
+        });
+
+        
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            alert("Registration successful! Please log in.");
+            showPage('login-page');
+        });
+
+
+        document.getElementById('quiz-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let score = 0;
+            const answers = { q1: 'C', q2: 'B' };
+
+            const q1Answer = document.querySelector('input[name="q1"]:checked');
+            if (q1Answer && q1Answer.value === answers.q1) {
+                score++;
+            }
+
+            const q2Answer = document.querySelector('input[name="q2"]:checked');
+            if (q2Answer && q2Answer.value === answers.q2) {
+                score++;
+            }
+
+            document.getElementById('score').textContent = score;
+            showPage('results-page');
+        });
+    </script>
+</body>
+</html>
